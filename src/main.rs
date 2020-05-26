@@ -5,7 +5,7 @@ fn main() {
      * store values of the same type. They are useful when you have a list of
      * items, such as the lines of text in a file or the prices of items 
      * in a shopping cart.
-     * ch08-01-vectors.html
+     * ch08-01-vectors
     */
     // Vec requires a type signature
     let mut v: Vec<i32> = Vec::new(); 
@@ -25,7 +25,17 @@ fn main() {
     println!("accessing by brackets for index, the third value in v is {}", third);
 
     match v.get(2) {
+        // the get method with the index passed as an argument, which gives us
+        // an Option<&T>
+        // ch08-01-vectors
         Some(third) => println!("match on vector.get(index) sez this is the third value: {}", third),
         None => println!("there is no third element"),
+    }
+
+    let v3 = vec!(1, 2);
+    match v3.get(2) {
+        Some(third) => println!("{} is the third value", third),
+        None => println!("there's no third value"), // yep, this arm is executed
+        // and it gets executed without panicking
     }
 }
