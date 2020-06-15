@@ -38,4 +38,53 @@ fn main() {
         None => println!("there's no third value"), // yep, this arm is executed
         // and it gets executed without panicking
     }
+
+    // can't do mutable and immutable references in the same scope
+    // this wouldn't work
+    /* 
+     * let mut vec![1,2,3,4,5];
+     * let first = &v[0]; // immutable borrow
+     * v.push(6); // mutable borrow, updating v
+     * println!("the first element is {}", first); 
+     * // crash, both refs are in the same scope
+     */
+
+    // iterate
+    let v4 = vec![100, 32, 57];
+    for i in &v4 {
+        println!("{}", i);
+    }
+
+    // iterate and modify
+    // doing a mutable borrow, since values are getting modified
+    //
+    let mut v5 = vec![100, 32, 57];
+    for i in &mut v5 {
+        // To change the value that the mutable reference refers to, we have 
+        // to use the dereference operator (*) to get to the value in i 
+        // before we can use the += operator.
+        // ch08-01-vectors
+        *i += 50;
+    }
+    // verify the changes by printing the contents of the vec
+    for i in &v5 {
+        println!("{}", i);
+    }
+
+    // a vec can have only one type
+    // but that type can be an enum (including it's variants)
+
+    // define the enum,
+    enum SpreadsheetCell {
+        Int(i32),
+        Float(f64),
+        Text(String),
+    }
+
+    // make a vec with it!
+    let row = vec![
+        SpreadsheetCell::Int(3),
+        SpreadsheetCell::Text(String::from("blue")),
+        SpreadsheetCell::Float(10.12),
+    ];
 }
